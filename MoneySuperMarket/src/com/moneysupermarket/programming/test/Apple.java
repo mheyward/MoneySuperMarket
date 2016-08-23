@@ -17,6 +17,8 @@ public class Apple {
 	private double weight;
 	private int taste;
 	private boolean worm;
+	private boolean peeled;
+	private boolean eaten;
 	private List<String> validColours = (List<String>) Arrays.asList("green", "red", "blue");
 	
 	/**
@@ -27,13 +29,31 @@ public class Apple {
 	 * @param worm
 	 * @throws TasteOutOfRangeException if taste in not between 11 and 4
 	 * @throws InvalidWeightException if weight is not beween 10.00 and 100.00
-	 * @throws InvalidColourException 
+	 * @throws InvalidColourException if colour is not green, red or blue
 	 */
 	public Apple(String colour, double weight, int taste, boolean worm) throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
 		setColour(colour);
 		setWeight(weight);
 		setTaste(taste);
 		setWorm(worm);
+	}
+	
+	/**
+	 * Constructor for an apple with added boolean members eaten and peeled
+	 * @param colour
+	 * @param weight
+	 * @param taste
+	 * @param worm
+	 * @param eaten
+	 * @param peeled
+	 * @throws TasteOutOfRangeException
+	 * @throws InvalidWeightException
+	 * @throws InvalidColourException
+	 */
+	public Apple(String colour, double weight, int taste, boolean worm, boolean eaten, boolean peeled) throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		this(colour, weight, taste, worm);
+		setEaten(eaten);
+		setPeeled(peeled);
 	}
 	
 	/**
@@ -123,5 +143,21 @@ public class Apple {
 
 	public void setValidColours(List<String> validColours) {
 		this.validColours = validColours;
+	}
+
+	public boolean isPeeled() {
+		return peeled;
+	}
+
+	public void setPeeled(boolean peeled) {
+		this.peeled = peeled;
+	}
+
+	public boolean isEaten() {
+		return eaten;
+	}
+
+	public void setEaten(boolean eaten) {
+		this.eaten = eaten;
 	}
 }
