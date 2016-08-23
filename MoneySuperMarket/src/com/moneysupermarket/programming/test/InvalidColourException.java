@@ -2,6 +2,8 @@ package com.moneysupermarket.programming.test;
 
 public class InvalidColourException extends Exception {
 	
+	private static final long serialVersionUID = -2146101711307345801L;
+
 	/**
 	 * Default constructor
 	 */

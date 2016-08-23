@@ -137,27 +137,58 @@ public class Apple {
 		this.worm = worm;
 	}
 
+	/**
+	 * Accessor for valid colourd
+	 * @return List of colour strings
+	 */
 	public List<String> getValidColours() {
 		return validColours;
 	}
 
+	/**
+	 * Mutator foe valid colours
+	 * @param validColours
+	 */
 	public void setValidColours(List<String> validColours) {
 		this.validColours = validColours;
 	}
 
+	/**
+	 * Accessor for peeled
+	 * @return true if peeled, false otherwise.
+	 */
 	public boolean isPeeled() {
 		return peeled;
 	}
 
+	/**
+	 * Mutator for peeled
+	 * @param peeled
+	 */
 	public void setPeeled(boolean peeled) {
 		this.peeled = peeled;
 	}
 
+	/**
+	 * Accessor for eaten
+	 * @return true if eaten, false otherwise.
+	 */
 	public boolean isEaten() {
 		return eaten;
 	}
 
+	/**
+	 * Mutator for eaten
+	 * @param eaten
+	 */
 	public void setEaten(boolean eaten) {
 		this.eaten = eaten;
+	}
+	
+	/**
+	 * Method to determine if apple can be eaten. If peeled and not already eaten it can be eaten.
+	 */
+	public void eatApple() {
+		eaten = peeled && !eaten ? true : false;
 	}
 }

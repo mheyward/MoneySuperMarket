@@ -1,6 +1,8 @@
 package com.moneysupermarket.programming.test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +61,20 @@ public class AppleTest {
 	@Test(expected = InvalidColourException.class)
 	public void testInvalidColour() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
 		testObj = new Apple("pink", 10.00, 1, false);
+	}
+	
+	@Test
+	public void testAppleCanBeEaten() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		testObj = new Apple("green", 10.00, 1, false, false, true);
+		testObj.eatApple();
+		assertTrue(testObj.isEaten());
+	}
+	
+	@Test
+	public void testAppleCannotBeEatenAsNotPeeled() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		testObj = new Apple("green", 10.00, 1, false, false, false);
+		testObj.eatApple();
+		assertFalse(testObj.isEaten());
 	}
 
 }
