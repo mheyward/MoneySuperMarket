@@ -1,5 +1,8 @@
 package com.moneysupermarket.programming.test;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Class representing an apple. Has weight and taste validation.
  * @author mheyward
@@ -14,6 +17,7 @@ public class Apple {
 	private double weight;
 	private int taste;
 	private boolean worm;
+	private List<String> validColours = (List<String>) Arrays.asList("green", "red", "blue");
 	
 	/**
 	 * Constructor for an apple.
@@ -23,8 +27,9 @@ public class Apple {
 	 * @param worm
 	 * @throws TasteOutOfRangeException if taste in not between 11 and 4
 	 * @throws InvalidWeightException if weight is not beween 10.00 and 100.00
+	 * @throws InvalidColourException 
 	 */
-	public Apple(String colour, double weight, int taste, boolean worm) throws TasteOutOfRangeException, InvalidWeightException {
+	public Apple(String colour, double weight, int taste, boolean worm) throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
 		setColour(colour);
 		setWeight(weight);
 		setTaste(taste);
@@ -41,9 +46,17 @@ public class Apple {
 	
 	/**
 	 * Mutator for colour
+	 * @throws InvalidColourException when colour is invalid
 	 */
-	public void setColour(String colour) {
-		this.colour = colour;
+	public void setColour(String colour) throws InvalidColourException {
+		for (String validColour : validColours) {
+			if(validColour.equals(colour)) {
+				this.colour = colour;
+				break;
+			} else {
+				throw new InvalidColourException(colour +  "is not valid. Please choose from " + validColours);
+			}
+		}
 	}
 	
 	/**
@@ -102,5 +115,13 @@ public class Apple {
 	 */
 	public void setWorm(boolean worm) {
 		this.worm = worm;
+	}
+
+	public List<String> getValidColours() {
+		return validColours;
+	}
+
+	public void setValidColours(List<String> validColours) {
+		this.validColours = validColours;
 	}
 }
