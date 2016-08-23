@@ -27,8 +27,13 @@ public class AppleTest {
 	}
 	
 	@Test(expected = TasteOutOfRangeException.class)
-	public void testTasteOutOfRange() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+	public void testTasteOutOfRangeWhenBelowMin() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
 		testObj = new Apple("green", 10.00, 0, false);
+	}
+	
+	@Test(expected = TasteOutOfRangeException.class)
+	public void testTasteOutOfRangeWhenAboveMax() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		testObj = new Apple("green", 10.00, 5, false);
 	}
 	
 	@Test
@@ -43,8 +48,13 @@ public class AppleTest {
 	}
 	
 	@Test(expected = InvalidWeightException.class)
-	public void testInvalidWeight() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+	public void testInvalidWeightWhenBelowMin() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
 		testObj = new Apple("green", 9.99, 1, false);
+	}
+	
+	@Test(expected = InvalidWeightException.class)
+	public void testInvalidWeightWhenAboveMax() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		testObj = new Apple("green", 100.01, 1, false);
 	}
 	
 	@Test
@@ -76,5 +86,33 @@ public class AppleTest {
 		testObj.eatApple();
 		assertFalse(testObj.isEaten());
 	}
-
+	
+	@Test
+	public void testAppleCannotBeEatenAsAlreadyEaten() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		testObj = new Apple("green", 10.00, 1, false, true, true);
+		testObj.eatApple();
+		assertFalse(testObj.isEaten());
+	}
+		
+	
+	@Test
+	public void testAppleCanBePeeled() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		testObj = new Apple("green", 10.00, 4, false, false, false);
+		testObj.peelApple();
+		assertTrue(testObj.isPeeled());
+	}
+	
+	@Test
+	public void testAppleCannotBePeeledAsHasWorm() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		testObj = new Apple("green", 10.00, 4, true, false, false);
+		testObj.peelApple();
+		assertFalse(testObj.isPeeled());
+	}
+	
+	@Test
+	public void testAppleCannotBePeeledAsTasteIsNotGreaterThan3() throws TasteOutOfRangeException, InvalidWeightException, InvalidColourException {
+		testObj = new Apple("green", 10.00, 3, false, false, false);
+		testObj.peelApple();
+		assertFalse(testObj.isPeeled());
+	}
 }

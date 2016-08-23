@@ -12,6 +12,9 @@ public class Apple {
 	
 	public static final double MIN_WEIGHT = 10;
 	public static final double MAX_WEIGHT = 100;
+	public static final double MIN_TASTE = 1;
+	public static final double MAX_TASTE = 4;
+	public static final double MIN_TASTE_FOR_PEELING = 3;
 	
 	private String colour;
 	private double weight;
@@ -20,6 +23,7 @@ public class Apple {
 	private boolean peeled;
 	private boolean eaten;
 	private List<String> validColours = (List<String>) Arrays.asList("green", "red", "blue");
+	private PeelerFactory peelerFactory;
 	
 	/**
 	 * Constructor for an apple.
@@ -36,6 +40,7 @@ public class Apple {
 		setWeight(weight);
 		setTaste(taste);
 		setWorm(worm);
+		peelerFactory = new PeelerFactory();
 	}
 	
 	/**
@@ -114,7 +119,7 @@ public class Apple {
 	 * @throws TasteOutOfRangeException if taste is not between 1 and 4
 	 */
 	public void setTaste(int taste) throws TasteOutOfRangeException {
-		if(taste > 0 && taste < 5) {
+		if(taste >= MIN_TASTE && taste <= MAX_TASTE) {
 			this.taste = taste;
 		} else {
 			throw new TasteOutOfRangeException("Taste out of range. Permitted values 1 to 4");
@@ -190,5 +195,12 @@ public class Apple {
 	 */
 	public void eatApple() {
 		eaten = peeled && !eaten ? true : false;
+	}
+	
+	public void peelApple() {
+		if(!worm && taste > MIN_TASTE_FOR_PEELING) {
+			Peeler peeler = peelerFactory.getPeeler(getColour());
+			peeler.peel(this);
+		}
 	}
 }
