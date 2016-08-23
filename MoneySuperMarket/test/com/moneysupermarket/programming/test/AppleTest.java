@@ -14,7 +14,7 @@ public class AppleTest {
 	}
 
 	@Test
-	public void testTasteInRange() {
+	public void testTasteInRange() throws InvalidWeightException {
 		TasteOutOfRangeException ex = null;
 		try {
 			testObj = new Apple("green", 10.00, 1, false);
@@ -25,8 +25,24 @@ public class AppleTest {
 	}
 	
 	@Test(expected = TasteOutOfRangeException.class)
-	public void testTasteOutOfRange() throws TasteOutOfRangeException {
+	public void testTasteOutOfRange() throws TasteOutOfRangeException, InvalidWeightException {
 		testObj = new Apple("green", 10.00, 0, false);
+	}
+	
+	@Test
+	public void testValidWeight() throws TasteOutOfRangeException {
+		InvalidWeightException ex = null;
+		try {
+			testObj = new Apple("green", 10.00, 1, false);
+		} catch(InvalidWeightException e) {
+			ex = e;
+		}
+		assertNull(ex);
+	}
+	
+	@Test(expected = InvalidWeightException.class)
+	public void testInvalidWeight() throws TasteOutOfRangeException, InvalidWeightException {
+		testObj = new Apple("green", 9.99, 0, false);
 	}
 
 }
